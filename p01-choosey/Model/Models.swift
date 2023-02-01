@@ -33,6 +33,19 @@ struct Business: Codable {
     let review_count: Int
     let url: String
     let transactions: [String]
+    
+    var verbalPricing: String {
+        guard let unwrapped = self.price else {
+            return "No available pricing"
+        }
+        if unwrapped.count < 3 {
+            return "Cheap"
+        } else if unwrapped.count == 3 {
+            return "Moderate"
+        } else {
+            return "Expensive"
+        }
+    }
 }
 
 struct Category: Codable {
@@ -96,4 +109,20 @@ extension Business {
                                   review_count: 33,
                                   url: "https://www.starbucks.com",
                                   transactions: [])
+}
+
+enum VerbalRating {
+    case good, bad, mid
+    static func rate(rating: Double) -> VerbalRating {
+        switch rating {
+        case let x where x < 2:
+            return .bad
+        case let x where x < 4:
+                return .mid
+        default:
+                return .good
+        }
+    }
+    
+    
 }
