@@ -64,6 +64,14 @@ struct Coordinate: Codable {
     let longitude: Double
 }
 
+extension Business: CustomStringConvertible {
+    var description: String {
+        return "Call \(name) at \(phone), or visit their website at \(url)!"
+    }
+    
+    
+}
+
 extension Business {
     static let example = Business(categories: [],
                                   coordinates: Coordinate(latitude: 37, longitude: -79),
